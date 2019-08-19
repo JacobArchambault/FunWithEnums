@@ -17,7 +17,7 @@ namespace FunWithEnums
 
             // Print storage for the enum.
             Console.WriteLine("EmpType uses a {0} for storage",
-                Enum.GetUnderlyingType(emp.GetType()));
+                Enum.GetUnderlyingType(typeof(EmpType)));
             Console.ReadLine();
         }
         // Enum as parameters
