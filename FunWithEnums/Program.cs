@@ -8,16 +8,37 @@ namespace FunWithEnums
 {
     class Program
     {
+        enum EmpType
+        {
+            Manager, // = 0
+            Grunt, // = 1
+            Contractor, // = 2
+            VicePresident // = 3
+        }
+
         static void Main(string[] args)
         {
             Console.WriteLine("***** Fun with Enums *****");
             // Make an EmpType Variable.
             EmpType emp = EmpType.Contractor;
+            EmpType e2 = EmpType.Contractor;
+
+            // These types are enums in the System namespace.
+            DayOfWeek day = DayOfWeek.Monday;
+            ConsoleColor cc = ConsoleColor.Gray;
+
             AskForBonus(emp);
 
+            // Prints out "emp is a Contractor".
+            Console.WriteLine("emp is a {0}.\n", emp.ToString());
+
             // Print storage for the enum.
-            Console.WriteLine("EmpType uses a {0} for storage",
+            Console.WriteLine("EmpType uses a {0} for storage\n",
                 Enum.GetUnderlyingType(typeof(EmpType)));
+
+            EvaluateEnum(e2);
+            EvaluateEnum(day);
+            EvaluateEnum(cc);
             Console.ReadLine();
         }
         // Enum as parameters
@@ -38,13 +59,27 @@ namespace FunWithEnums
                     Console.WriteLine("VERY GOOD, Sir!");
                     break;
             }
+            Console.WriteLine();
         }
-        enum EmpType
+
+        static void EvaluateEnum(System.Enum e)
         {
-            Manager, // = 0
-            Grunt, // = 1
-            Contractor, // = 2
-            VicePresident // = 3
+            Console.WriteLine("=> Information about {0}", e.GetType().Name);
+
+            Console.WriteLine("Underlying storage type: {0}",
+                Enum.GetUnderlyingType(e.GetType()));
+
+            // Get all name-value pairs for incoming parameter.
+            Array enumData = Enum.GetValues(e.GetType());
+            Console.WriteLine("This enum has {0} members", enumData.Length);
+
+            // Now show the string name and associated value, using the D format flag
+            for (int i = 0; i < enumData.Length; i++)
+            {
+                Console.WriteLine("Name: {0}, Value: {0:D}", 
+                    enumData.GetValue(i));
+            }
+            Console.WriteLine();
         }
     }
 }
